@@ -10,17 +10,17 @@ def main():
     width, height = im.size
 
     all_pixels = make_bw(width, height, pixels)
-
     all_ascii = turn_to_ascii(all_pixels)
-
     store_file(file_to_store_ascii, all_ascii)
 
 def make_bw(width, height, pixels):
     all_pixels = []
 
     multiplier = 1
-    if width > 250:
+    if width > 500:
         multiplier = 10
+    elif width > 1000:
+        multiplier = 20
 
     for x in range(width // multiplier):
         rows = []
@@ -68,7 +68,9 @@ def turn_to_ascii(all_pixels):
 def store_file(ascii_file, all_ascii):
     all_ascii_lines = []
 
-    for row in all_ascii:
+    transposed_image = list(zip(*all_ascii))
+
+    for row in transposed_image:
         rows = ''
         for pixel in row:
             rows += (pixel + ' ')
