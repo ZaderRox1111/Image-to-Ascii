@@ -50,7 +50,7 @@ def make_bw(width, height, pixels):
 def turn_to_ascii(all_pixels):
     all_ascii = []
 
-    ascii_scale = '@%#M+>=-:. '
+    ascii_scale = '@%#M+=>-:. '
 
     for row in all_pixels:
 
