@@ -28,7 +28,7 @@ def make_bw(width, height, pixels):
             cpixel = pixels[multiplier * x,multiplier * y]
             bw_value = int(round(sum(cpixel) / float(len(cpixel))))
 
-            rows.append(255 - bw_value)
+            rows.append(bw_value)
         all_pixels.append(rows)
 
     return all_pixels
@@ -41,25 +41,25 @@ def turn_to_ascii(all_pixels):
         for pixel in row:
 
             if pixel >= 230:
-                ascii_row.append('@')
-            elif pixel >= 205:
-                ascii_row.append('%')
-            elif pixel >= 180:
-                ascii_row.append('#')
-            elif pixel >= 155:
-                ascii_row.append('*')
-            elif pixel >= 120:
-                ascii_row.append('+')
-            elif pixel >= 95:
-                ascii_row.append('=')
-            elif pixel >= 70:
-                ascii_row.append('-')
-            elif pixel >= 45:
-                ascii_row.append(':')
-            elif pixel >= 20:
-                ascii_row.append('.')
-            else:
                 ascii_row.append(' ')
+            elif pixel >= 205:
+                ascii_row.append('.')
+            elif pixel >= 180:
+                ascii_row.append(':')
+            elif pixel >= 155:
+                ascii_row.append('-')
+            elif pixel >= 120:
+                ascii_row.append('=')
+            elif pixel >= 95:
+                ascii_row.append('+')
+            elif pixel >= 70:
+                ascii_row.append('*')
+            elif pixel >= 45:
+                ascii_row.append('#')
+            elif pixel >= 20:
+                ascii_row.append('%')
+            else:
+                ascii_row.append('@')
 
         all_ascii.append(ascii_row)
 
