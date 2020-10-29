@@ -16,11 +16,25 @@ def main():
 def make_bw(width, height, pixels):
     all_pixels = []
 
-    multiplier = 1
-    if width > 500:
-        multiplier = 10
-    elif width > 1000:
-        multiplier = 20
+    if width <= 500 and height <= 400:
+        multiplier = 1
+    else:
+        if width >= height:
+            multiplier = round(width / 100)
+        else:
+            multiplier = round(height / 100)
+
+    # multiplier = 1
+    # if width > 4000 or height > 5000:
+    #     multiplier = 80
+    # elif width > 3000 or height > 4000:
+    #     multiplier = 60
+    # elif width > 2000 or height > 3000:
+    #     multiplier = 35
+    # elif width > 1000 or height > 2000:
+    #     multiplier = 25
+    # elif width > 500 or height > 1000:
+    #     multiplier = 12
 
     for x in range(width // multiplier):
         rows = []
@@ -36,39 +50,19 @@ def make_bw(width, height, pixels):
 def turn_to_ascii(all_pixels):
     all_ascii = []
 
-    ascii_scale = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,"^`\'. '
+    ascii_scale = '@%#M+>=-:. '
 
     for row in all_pixels:
 
         ascii_row = []
         for pixel in row:
             
+            # basically compares the pixel's grayscale to the list of ascii --> ex: 155/255 about= ascii_scale[155/255]
             ascii_index = round((pixel/255) * (len(ascii_scale)))
             if ascii_index >= len(ascii_scale):
                 ascii_index = len(ascii_scale) - 1
             ascii_char = ascii_scale[ascii_index]
             ascii_row.append(ascii_char)
-
-            # if pixel >= 230:
-            #     ascii_row.append(' ')
-            # elif pixel >= 205:
-            #     ascii_row.append('.')
-            # elif pixel >= 180:
-            #     ascii_row.append(':')
-            # elif pixel >= 155:
-            #     ascii_row.append('-')
-            # elif pixel >= 120:
-            #     ascii_row.append('=')
-            # elif pixel >= 95:
-            #     ascii_row.append('+')
-            # elif pixel >= 70:
-            #     ascii_row.append('*')
-            # elif pixel >= 45:
-            #     ascii_row.append('#')
-            # elif pixel >= 20:
-            #     ascii_row.append('%')
-            # else:
-            #     ascii_row.append('@')
 
         all_ascii.append(ascii_row)
 
@@ -77,6 +71,7 @@ def turn_to_ascii(all_pixels):
 def store_file(ascii_file, all_ascii):
     all_ascii_lines = []
 
+    # uses zip to transpose image, so that it is oriented the correct way
     transposed_image = list(zip(*all_ascii))
 
     for row in transposed_image:
